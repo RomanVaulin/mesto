@@ -1,0 +1,17 @@
+.profile__name {
+    margin: 0 0;
+    height: 37px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 42px;
+    line-height: 45px;
+    font-weight: 500;
+    vertical-align: bottom;
+}
+
+@media screen and (max-width: 750px) {
+    .profile__name {
+        height: 26px;
+        font-size: 27px;
+        line-height: 33px;
+    }
+}
