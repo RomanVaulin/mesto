@@ -1,4 +1,4 @@
-.popup__field {
+.popupAdd__field {
     max-width: 358px;
     width: 100%;
     margin: 29px auto 0;
@@ -11,7 +11,7 @@
 }
 
 @media screen and  (max-width: 470px) {
-    .popup__field {
+    .popupAdd__field {
         max-width: 238px;
     }
 }

@@ -1,4 +1,4 @@
-.popup__form {
+.popupEdit__form {
     margin: 0;
     padding: 14px 0;
     display: flex;
@@ -6,7 +6,7 @@
 }
 
 @media screen and  (max-width: 470px) {
-    .popup__form {
+    .popupEdit__form {
         padding: 17px 0;
     }
 }
