@@ -94,7 +94,7 @@ const addCard = (item) => {
     //попап изображения
     const imgPopup = document.querySelector('.popupImage');
     const imgPopupCloseBtn = imgPopup.querySelector('.popupImage__close-button');
-    const openImg = imgPopup.querySelector('.popupImage__image_opened');
+    const openImg = imgPopup.querySelector('.popupImage__image-opened');
     const imgCaption = imgPopup.querySelector('.popupImage__caption');
 
     imgLink.addEventListener('click', () => {
