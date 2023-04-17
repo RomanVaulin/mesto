@@ -23,41 +23,41 @@ const closeButtons = document.querySelectorAll('.popup__close');//находим
 //массив 6 карточек для пр5
 const initialCards = [
     {
-        place: 'Архыз',
+        name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
     {
-        place: 'Челябинская область',
+        name: 'Челябинская область',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
     },
     {
-        place: 'Иваново',
+        name: 'Иваново',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
     },
     {
-        place: 'Камчатка',
+        name: 'Камчатка',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
     },
     {
-        place: 'Холмогорский район',
+        name: 'Холмогорский район',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
     },
     {
-        place: 'Байкал',
+        name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
 
 //объявляем общую функцию открытия попапов
-function openPopup(popup) {
+const openPopup = (popup) => {
     popup.classList.add('popup_opened');
 }
 //объявляем общую функцию кнопки закрытия попапов
-function closePopup(popup) {
+const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
 }
 //объявляем функцию кнопки сохранения изменений
-function submitPopup(evt) {
+const submitPopup = (evt) => {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value.trim();
     jobProfile.textContent = jobInput.value.trim();
@@ -83,7 +83,7 @@ closeButtons.forEach((button) => {
 
 //слушатель кнопки открытия попапа добавления карточек
 buttonAdd.addEventListener('click', () => {
-    openPopup(popupAdd)
+    openPopup(popupAdd);
 });
 
 //объявляем функцию создания карточек
@@ -92,15 +92,15 @@ const addCard = (item) => {
     const imgLink = cardElement.querySelector('.element__image');
     const placeLink = cardElement.querySelector('.element__description');
     imgLink.src = item.link;
-    imgLink.alt = item.place;
-    placeLink.textContent = item.place;
+    imgLink.alt = item.name;
+    placeLink.textContent = item.name;
 
     //попап изображения
     imgLink.addEventListener('click', () => {
-        imgPopup.classList.add('popup_opened');
+        openPopup(imgPopup);
         openImg.src = item.link;
-        imgLink.alt = item.place;
-        imgCaption.textContent = item.place;
+        imgLink.alt = item.name;
+        imgCaption.textContent = item.name;
     })
 
     //кнопка лайка
@@ -115,7 +115,6 @@ const addCard = (item) => {
     }
     //слушатели кнопока удаления и лайка
     cardDelete.addEventListener('click', handleDeleteCardClick);
-    cardLike.addEventListener('click', cardLike);
 
     return cardElement;
 };
@@ -127,13 +126,13 @@ const addElement = (card, item) => {
 initialCards.forEach((item) => {
     addElement(container, item);
 });
-//слушатель кнопки добавления карточки с функцией
+//слушатель кнопки добавления карточки с местом
 createForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    place = placeInput.value;
-    link = linkInput.value;
+    const name = placeInput.value;
+    const link = linkInput.value;
 
-    addElement(container, {place, link});
+    addElement(container, {name, link});
     evt.target.reset();
 
     closePopup(popupAdd);
