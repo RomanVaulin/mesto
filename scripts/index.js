@@ -48,13 +48,31 @@ const initialCards = [
     }
 ];
 
+//закрытие попапов на Esc
+const popupCloseEsc = (evt) => {
+    if (evt.code === 'Escape') {
+        closePopup(document.querySelector('.popup_opened'));
+    }
+};
+
+//закрытие попапов по оверлею
+const popupCloseOverlay = (evt) => {
+    if (evt.target === evt.currentTarget || evt.target.classList.contains(closeButtons)) {
+        closePopup(evt.currentTarget);
+    }
+};
+
 //объявляем общую функцию открытия попапов
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
+    window.addEventListener('keydown', popupCloseEsc);
+    popup.addEventListener('click', popupCloseOverlay);
 }
 //объявляем общую функцию кнопки закрытия попапов
 const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
+    window.removeEventListener('keydown', popupCloseEsc);
+    popup.removeEventListener('click', popupCloseOverlay);
 }
 //объявляем функцию кнопки сохранения изменений
 const submitPopup = (evt) => {
