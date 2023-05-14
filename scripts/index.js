@@ -2,7 +2,7 @@
 const editButton = document.querySelector('.profile__edit-button');//находим кнопку редактирования имени и рода деятельности
 const popupEdit = document.querySelector('.popupEdit');//находим весь попап
 
-const submitForm = popupEdit.querySelector('.popupEdit__form');//находим форму попапа редактирования имени и рода деятельности
+const submitEditForm = popupEdit.querySelector('.popupEdit__form');//находим форму попапа редактирования имени и рода деятельности
 const nameProfile = document.querySelector('.profile__name');//находим строку с именем 
 const jobProfile = document.querySelector('.profile__description');//находим строку с родом деятельности
 const nameInput = popupEdit.querySelector('.popupEdit__field_name_input');//находим ввод нового имени
@@ -19,8 +19,9 @@ const imgPopup = document.querySelector('.popupImage');//находим попа
 const openImg = imgPopup.querySelector('.popupImage__image-opened');//находим элемент открытия изображения
 const imgCaption = imgPopup.querySelector('.popupImage__caption');//находим подпись фотографий
 const closeButtons = document.querySelectorAll('.popup__close');//находим все кнопки закрытия форм
+const addPopupSubmitBtn = popupAdd.querySelector('.popup__button');
 
-//массив 6 карточек для пр5
+//массив 6 карточек для пр5 (перенесу при выполнении следующей практической)
 const initialCards = [
     {
         name: 'Архыз',
@@ -57,25 +58,26 @@ const popupCloseEsc = (evt) => {
 
 //закрытие попапов по оверлею
 const popupCloseOverlay = (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains(closeButtons)) {
-        closePopup(evt.currentTarget);
+    if ((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
+        closePopup();
     }
 };
 
 //объявляем общую функцию открытия попапов
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
-    window.addEventListener('keydown', popupCloseEsc);
-    popup.addEventListener('click', popupCloseOverlay);
+    document.addEventListener('keydown', popupCloseEsc);
+    document.addEventListener('click', popupCloseOverlay);
 }
 //объявляем общую функцию кнопки закрытия попапов
-const closePopup = (popup) => {
+const closePopup = () => {
+    const popup = document.querySelector('.popup_opened');
     popup.classList.remove('popup_opened');
-    window.removeEventListener('keydown', popupCloseEsc);
-    popup.removeEventListener('click', popupCloseOverlay);
+    document.removeEventListener('keydown', popupCloseEsc);
+    document.removeEventListener('click', popupCloseOverlay);
 }
 //объявляем функцию кнопки сохранения изменений
-const submitPopup = (evt) => {
+const submitEditPopup = (evt) => {
     evt.preventDefault();
     nameProfile.textContent = nameInput.value.trim();
     jobProfile.textContent = jobInput.value.trim();
@@ -89,15 +91,7 @@ editButton.addEventListener('click', () => {
     jobInput.value = jobProfile.textContent.trim();
 });
 //слушатель кнопки сохранения изменений попапа редактирования
-submitForm.addEventListener('submit', submitPopup);
-
-//функиця обработчик всех кнопок закрытия попапов
-closeButtons.forEach((button) => {
-    // находим 1 раз ближайший к крестику попап 
-    const popup = button.closest('.popup');
-    // устанавливаем обработчик закрытия на крестик
-    button.addEventListener('click', () => closePopup(popup));
-});
+submitEditForm.addEventListener('submit', submitEditPopup);
 
 //слушатель кнопки открытия попапа добавления карточек
 buttonAdd.addEventListener('click', () => {
@@ -140,10 +134,12 @@ const addCard = (item) => {
 const addElement = (card, item) => {
     card.prepend(addCard(item));
 }
+
 //вставка карточек из массива
 initialCards.forEach((item) => {
     addElement(container, item);
 });
+
 //слушатель кнопки добавления карточки с местом
 createForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -154,4 +150,6 @@ createForm.addEventListener('submit', (evt) => {
     evt.target.reset();
 
     closePopup(popupAdd);
+    addPopupSubmitBtn.classList.add('popup__button_disabled');
+    addPopupSubmitBtn.setAttribute('disabled', true);
 });
