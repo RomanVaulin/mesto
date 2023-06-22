@@ -35,14 +35,14 @@ const validationConfig = {
 };
 
 //закрытие попапов на Esc
-const popupCloseEsc = (evt) => {
+const closeByEsc = (evt) => {
     if (evt.code === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
     }
 };
 
 //закрытие попапов по оверлею
-const popupCloseOverlay = (evt) => {
+const closeByOverlay = (evt) => {
     if ((evt.target.classList.contains('popup__close')) || (evt.target.classList.contains('popup_opened'))) {
         closePopup();
     }
@@ -51,15 +51,15 @@ const popupCloseOverlay = (evt) => {
 //объявляем общую функцию открытия попапов
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    document.addEventListener('keydown', popupCloseEsc);
-    document.addEventListener('click', popupCloseOverlay);
+    document.addEventListener('keydown', closeByEsc);
+    document.addEventListener('click', closeByOverlay);
 }
 //объявляем общую функцию кнопки закрытия попапов
 const closePopup = () => {
     const popup = document.querySelector('.popup_opened');
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', popupCloseEsc);
-    document.removeEventListener('click', popupCloseOverlay);
+    document.removeEventListener('keydown', closeByEsc);
+    document.removeEventListener('click', closeByOverlay);
 }
 //объявляем функцию кнопки сохранения изменений
 const submitEditPopup = (evt) => {
@@ -117,8 +117,6 @@ createForm.addEventListener('submit', (evt) => {
     evt.target.reset();
 
     closePopup(popupAdd);
-    addPopupSubmitBtn.classList.add('popup__button_disabled');
-    addPopupSubmitBtn.setAttribute('disabled', true);
 });
 
 const formPersonalDataValitation = new FormValidator(validationConfig, popupEdit);
