@@ -1,10 +1,10 @@
 import './index.css';
-import Card from './components/Сard.js';
-import FormValidator from './components/FormValidator.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import Section from './components/Section.js';
-import UserInfo from './components/UserInfo.js';
-import PopupWithForm from './components/PopupWithForm.js';
+import Card from '../components/Сard.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import {
     initialCards,
     editButton,
@@ -16,7 +16,7 @@ import {
     containerSelector,
     configUser,
     validationConfig
-} from './utils/constants.js';
+} from '../utils/constants.js';
 
 const popupEdit = document.querySelector('.popupEdit');
 const popupAdd = document.querySelector('.popupAdd');
@@ -25,13 +25,13 @@ const userInfo = new UserInfo(configUser);
 
 editButton.addEventListener('click', () => {
     popupProfile.setInputValue(userInfo.getUserInfo());
-    formPersonalDataValitation.resetErrorForm();
-    popupProfile.openPopup();
+    formPersonalDataValitation.resetValidationState();
+    popupProfile.open();
 });
 
 buttonAdd.addEventListener('click', () => {
-    popupAddCard.openPopup();
-    formAddCardValitation.resetErrorForm();
+    popupAddCard.open();
+    formAddCardValitation.resetValidationState();
 });
 
 const popupImage = new PopupWithImage(popupImageSelector);
@@ -44,19 +44,17 @@ const section = new Section({
        return card.createCard();
     }
 }, containerSelector);
-section.addCardFromArray();
+section.addCardsFromArray();
 
-const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
-    evt.preventDefault();
-    userInfo.setUserInfo(popupProfile.getInputValue());
-    popupProfile.closePopup();
+const popupProfile = new PopupWithForm(popupProfileSelector, (values) => {
+    userInfo.setUserInfo(values);
+    popupProfile.close();
 });
 popupProfile.setEventListeners();
 
-const popupAddCard = new PopupWithForm(popupAddCardSelector, (evt) => {
-    evt.preventDefault();
-    section.addItem(section.renderer(popupAddCard.getInputValue()))
-    popupAddCard.closePopup()
+const popupAddCard = new PopupWithForm(popupAddCardSelector, (values) => {
+    section.addItem(section.renderer(values))
+    popupAddCard.close()
 });
 popupAddCard.setEventListeners();
 

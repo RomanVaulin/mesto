@@ -64,7 +64,7 @@ export default class FormValidator {
         this._addInputListeners();
     }
 
-    resetErrorForm() {
+    resetValidationState() {
         this._inputList.forEach((input) => {
             const errorReset = this._form.querySelector(`#${input.id}-error`);
             if (!input.validity.valid) {

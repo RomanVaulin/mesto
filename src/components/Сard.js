@@ -1,8 +1,7 @@
 export default class Card {
     constructor(cardData, templateSelector, openImagePopup) {
         this._cardData = cardData;
-        this._link = cardData.link;
-        this._name = cardData.title;
+
         this._templateSelector = templateSelector;
         this._openImage = openImagePopup;
     }
@@ -38,9 +37,9 @@ export default class Card {
         this._likeBtnElement = this._cloneElement.querySelector('.element__like-button');
         this._trashBtnElement = this._cloneElement.querySelector('.element__trash');
         this._descriptionElement = this._cloneElement.querySelector('.element__description');
-        this._imageElement.src = this._link;
-        this._imageElement.alt = this._name;
-        this._descriptionElement.textContent = this._name;
+        this._imageElement.src = this._cardData.link;
+        this._imageElement.alt = this._cardData.title;
+        this._descriptionElement.textContent = this._cardData.title;
         this._setEventListeners();
         return this._cloneElement;
     }
