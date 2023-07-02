@@ -72,8 +72,8 @@ export default class Card {
         this._imageElement.src = this._cardData.link;
         this._imageElement.alt = this._cardData.name;
         this._descriptionElement.textContent = this._cardData.name;
-        this._checkLikeStatus();
         this._changeVisibleForTrashBtn();
+        this._checkLikeStatus();
         this._setEventListeners();
         return this._cloneElement;
     }
