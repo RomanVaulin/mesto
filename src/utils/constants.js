@@ -29,15 +29,15 @@ const editButton = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const popupEdit = document.querySelector('.popupEdit');
 const popupAdd = document.querySelector('.popupAdd');
-const popupAvatar = document.querySelector('.edit-avatar-popup');
+const popupAvatar = document.querySelector('.popupAvatar');
 const buttonAvatar = document.querySelector('.profile__avatar-overlay');
 const templateSelector = "#card";
 const popupProfileSelector = '.popupEdit';
 const popupAddCardSelector = '.popupAdd';
 const popupImageSelector = '.popupImage';
 const containerSelector = '.elements';
-const popupAvatarEdit = '.edit-avatar-popup';
-const popupDeleteSelector = '.delete-popup';
+const popupAvatarEdit = '.popupAvatar';
+const popupDeleteSelector = '.popupDelete';
 const configUser = {
     nameProfileSelector: '.profile__name',
     jobProfileSelector: '.profile__description',
