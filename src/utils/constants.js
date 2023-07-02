@@ -24,18 +24,24 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-// export { initialCards };
 
 const editButton = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
+const popupEdit = document.querySelector('.popupEdit');
+const popupAdd = document.querySelector('.popupAdd');
+const popupAvatar = document.querySelector('.edit-avatar-popup');
+const buttonAvatar = document.querySelector('.profile__avatar-overlay');
 const templateSelector = "#card";
 const popupProfileSelector = '.popupEdit';
 const popupAddCardSelector = '.popupAdd';
 const popupImageSelector = '.popupImage';
 const containerSelector = '.elements';
+const popupAvatarEdit = '.edit-avatar-popup';
+const popupDeleteSelector = '.delete-popup';
 const configUser = {
     nameProfileSelector: '.profile__name',
-    jobProfileSelector: '.profile__description'
+    jobProfileSelector: '.profile__description',
+    avatarProfileSelector: '.profile__avatar'
 };
 const validationConfig = {
     formSelector: '.popup__form',
@@ -50,11 +56,17 @@ export {
     initialCards,
     editButton,
     buttonAdd,
+    popupEdit,
+    popupAdd,
+    popupAvatar,
+    buttonAvatar,
     templateSelector,
     popupProfileSelector,
     popupAddCardSelector,
     popupImageSelector,
     containerSelector,
+    popupAvatarEdit,
+    popupDeleteSelector,
     configUser,
     validationConfig
 };
