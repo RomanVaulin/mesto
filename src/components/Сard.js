@@ -52,7 +52,6 @@ export default class Card {
         this._likes.forEach(value => {
             if (value._id === this._myId) {
                 this._likeBtnElement.classList.add('element__like-button_active')
-                return true
             }
         })
         this._likesCounter.textContent = this._likesLength;
