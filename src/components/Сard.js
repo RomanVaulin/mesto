@@ -49,11 +49,10 @@ export default class Card {
     }
 
     _checkLikeStatus() {
-        this._likes.forEach(value => {
-            if (value._id === this._myId) {
-                this._likeBtnElement.classList.add('element__like-button_active')
-            }
-        })
+        const myId = this._likes.find(user => user._id === this._myId);
+        if (myId) {
+            this._likeBtnElement.classList.add('element__like-button_active')
+        }
         this._likesCounter.textContent = this._likesLength;
     }
 
