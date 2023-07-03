@@ -29,7 +29,7 @@ export default class Card {
     }
 
     _handleLikeBtn = () => {
-        this._changeLike(this._likeBtnElement, this._cardId);
+        this._changeLike(this._cardId, this._likeBtnElement);
     }
 
     _handleTrashBtn = () => {
@@ -52,7 +52,7 @@ export default class Card {
         this._likes.forEach(value => {
             if (value._id === this._myId) {
                 this._likeBtnElement.classList.add('element__like-button_active')
-                return
+                return true
             }
         })
         this._likesCounter.textContent = this._likesLength;
@@ -61,6 +61,10 @@ export default class Card {
     isLiked(likes) {
         this._likeBtnElement.classList.toggle('element__like-button_active');
         this._likesCounter.textContent = likes.length
+    }
+
+    isMyLike() {
+        return this._likeBtnElement.classList.contains('element__like-button_active');
     }
 
     removeCard() {

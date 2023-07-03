@@ -8,13 +8,16 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDeleteCard from '../components/PopupDeleteCard';
 import Api from '../components/Api';
 import {
-    initialCards,
+    // initialCards,
     editButton,
     buttonAdd,
-    popupEdit,
-    popupAdd,
-    popupAvatar,
+    // popupEdit,
+    // popupAdd,
+    // popupAvatar,
     buttonAvatar,
+    newCardForm,
+    editForm,
+    avatarForm,
     templateSelector,
     popupProfileSelector,
     popupAddCardSelector,
@@ -64,8 +67,9 @@ const deletePopupCard = new PopupDeleteCard(popupDeleteSelector, ({ card, cardId
 deletePopupCard.setEventListeners()
 
 function createNewCard(element) {
-    const card = new Card(element, templateSelector, popupImage.openPopup, deletePopupCard.open, (likeElement, cardId) => {
-        if (likeElement.classList.contains('element__like-button_active')){
+    const card = new Card(element, templateSelector, popupImage.openPopup, deletePopupCard.open, (cardId) => {
+        const isLiked = card.isMyLike();
+        if (isLiked){
             api.deleteLike(cardId)
                 .then(res => {
                     card.isLiked(res.likes);
@@ -86,21 +90,21 @@ const section = new Section((element) => {
         section.addItemAppend(createNewCard(element))
     }, containerSelector);
 
-const popupProfile = new PopupWithForm(popupProfileSelector, (values) => {
+const popupProfile = new PopupWithForm(popupProfileSelector, editForm, (values) => {
     api.setUserInfo(values)
         .then(res => {
             userInfo.setUserInfo({ username: res.name, job: res.about, avatar: res.avatar });
+            popupProfile.close();
         })
         .catch((error => console.log(`Ошибка редактирования личного профиля ${error}`)))
         .finally(() => popupProfile.setDefaultText())
-    popupProfile.close();
 });
 popupProfile.setEventListeners();
 
-const popupAddCard = new PopupWithForm(popupAddCardSelector, (values) => {
-    Promise.all([api.getInfo(), api.addCard(values)])
-        .then(([dataUser, dataCard]) => {
-            dataCard.myid = dataUser._id;
+const popupAddCard = new PopupWithForm(popupAddCardSelector, newCardForm, (values) => {
+    api.addCard(values)
+        .then(dataCard => {
+            dataCard.myId = dataCard.owner._id;
             section.addItem(createNewCard(dataCard))
             popupAddCard.close()
         })
@@ -111,7 +115,7 @@ const popupAddCard = new PopupWithForm(popupAddCardSelector, (values) => {
 });
 popupAddCard.setEventListeners();
 
-const popupEditAvatar = new PopupWithForm(popupAvatarEdit, (values) => {
+const popupEditAvatar = new PopupWithForm(popupAvatarEdit, avatarForm, (values) => {
     api.setNewAvatar(values)
         .then(res => {
             userInfo.setUserInfo({ username: res.name, job: res.about, avatar: res.avatar });
@@ -128,13 +132,13 @@ buttonAvatar.addEventListener('click', () => {
     popupEditAvatar.open()
 })
 
-const formPersonalDataValitation = new FormValidator(validationConfig, popupEdit);
+const formPersonalDataValitation = new FormValidator(validationConfig, editForm);
 formPersonalDataValitation.enableValidation();
 
-const formAddCardValitation = new FormValidator(validationConfig, popupAdd);
+const formAddCardValitation = new FormValidator(validationConfig, newCardForm);
 formAddCardValitation.enableValidation();
 
-const formAvatarValidation = new FormValidator(validationConfig, popupAvatar);
+const formAvatarValidation = new FormValidator(validationConfig, avatarForm);
 formAvatarValidation.enableValidation();
 
 Promise.all([api.getInfo(), api.getCards()])

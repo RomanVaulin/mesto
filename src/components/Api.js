@@ -10,7 +10,7 @@ export default class Api {
     }
 
     getInfo() {
-        return fetch(`${this._url}/users/me `, {
+        return fetch(`${this._url}/users/me`, {
             headers: {
                 authorization: this._authorization
             }
